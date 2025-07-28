@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "baseUrl": ".",
+    "esModuleInterop": true,
+    "lib": ["esnext"],
+    "module": "es2022",
+    "moduleResolution": "node",
+    "outDir": "dist",
+    "rootDir": "../backend",
+    "paths": {
+      "~/*": ["src/*"]
+    },
+    "sourceMap": true,
+    "target": "esnext",
+    "types": ["@types/jest"]
+  }
+}
