@@ -1,0 +1,99 @@
+# Task List: Studio Ghibli Film Application
+
+## Relevant Files
+
+- `packages/backend/src/schemaModules/ghibli/index.ts` - GraphQL schema definitions for Studio Ghibli films
+- `packages/backend/src/schemaModules/ghibli/queries.ghibliSchema.ts` - GraphQL queries for fetching film data
+- `packages/backend/src/schemaModules/ghibli/objectTypes.ghibliSchema.ts` - GraphQL object types for film data
+- `packages/backend/src/services/GhibliAPI/GhibliAPI.service.ts` - Service for integrating with Studio Ghibli API
+- `packages/backend/src/services/GhibliAPI/GhibliAPI.service.test.ts` - Unit tests for GhibliAPI service
+- `packages/frontend/src/modules/ghibli/GhibliApp.tsx` - Main application component
+- `packages/frontend/src/modules/ghibli/GhibliApp.test.tsx` - Unit tests for main component
+- `packages/frontend/src/modules/ghibli/components/FilmCard.tsx` - Interactive film card component
+- `packages/frontend/src/modules/ghibli/components/FilmCard.test.tsx` - Unit tests for film card component
+- `packages/frontend/src/modules/ghibli/components/FilmButton.tsx` - Film button component
+- `packages/frontend/src/modules/ghibli/components/FilmButton.test.tsx` - Unit tests for film button component
+- `packages/frontend/src/modules/ghibli/components/PaginationControls.tsx` - Pagination controls component
+- `packages/frontend/src/modules/ghibli/components/PaginationControls.test.tsx` - Unit tests for pagination component
+- `packages/frontend/src/modules/ghibli/hooks/useGhibliFilms.ts` - Custom hook for film data management
+- `packages/frontend/src/modules/ghibli/hooks/useGhibliFilms.test.ts` - Unit tests for custom hook
+- `packages/frontend/src/modules/ghibli/styles/GhibliApp.styles.ts` - Styled components for main app
+- `packages/frontend/src/modules/ghibli/styles/FilmCard.styles.ts` - Styled components for film cards
+- `packages/frontend/src/modules/ghibli/types/ghibli.types.ts` - TypeScript type definitions
+- `packages/frontend/src/modules/ghibli/utils/imageUtils.ts` - Utility functions for image handling
+- `packages/frontend/src/modules/ghibli/utils/imageUtils.test.ts` - Unit tests for image utilities
+- `packages/frontend/src/modules/ghibli/utils/fallbackUtils.ts` - Utility functions for fallback content
+- `packages/frontend/src/modules/ghibli/utils/fallbackUtils.test.ts` - Unit tests for fallback utilities
+
+### Notes
+
+- Unit tests should typically be placed alongside the code files they are testing (e.g., `FilmCard.tsx` and `FilmCard.test.tsx` in the same directory).
+- Use `npx jest [optional/path/to/test/file]` to run tests. Running without a path executes all tests found by the Jest configuration.
+
+## Tasks
+
+- [ ] 1.0 Backend GraphQL Schema and API Integration
+
+  - [ ] 1.1 Create GraphQL object types for Studio Ghibli film data (Film type with all required fields)
+  - [ ] 1.2 Implement GraphQL queries for fetching individual films by ID and all films
+  - [ ] 1.3 Create GhibliAPI service to integrate with Studio Ghibli API (https://ghibliapi.vercel.app/)
+  - [ ] 1.4 Implement caching mechanism for API responses using in-memory or Redis
+  - [ ] 1.5 Add error handling with retry mechanisms and throttling for failed requests
+  - [ ] 1.6 Create GraphQL resolvers that connect to the GhibliAPI service
+  - [ ] 1.7 Add the ghibli schema module to the main GraphQL schema
+  - [ ] 1.8 Write unit tests for GhibliAPI service and GraphQL resolvers
+
+- [ ] 2.0 Frontend Core Application Structure and Styling
+
+  - [ ] 2.1 Create main GhibliApp component with cloud background theme
+  - [ ] 2.2 Implement header "Discover Studio Ghibli Films" with Montserrat font styling
+  - [ ] 2.3 Add subtitle "Select a film & hover to learn more" with proper typography
+  - [ ] 2.4 Set up responsive layout using CSS Grid/Flexbox for card arrangement
+  - [ ] 2.5 Create styled components for consistent theming (colors, typography, spacing)
+  - [ ] 2.6 Implement cloud background image integration
+  - [ ] 2.7 Set up Apollo Client configuration for GraphQL integration
+  - [ ] 2.8 Create TypeScript type definitions for film data
+  - [ ] 2.9 Write unit tests for main application component
+
+- [ ] 3.0 Interactive Film Card Components and States
+
+  - [ ] 3.1 Create FilmButton component for initial film selection (4 main films)
+  - [ ] 3.2 Implement FilmCard component with three states: default, hover, and clicked
+  - [ ] 3.3 Add smooth card flip animations using CSS transforms
+  - [ ] 3.4 Implement default state showing movie image from API 'image' field
+  - [ ] 3.5 Create hover state showing only title with arrow indicator
+  - [ ] 3.6 Build clicked state with detailed information layout:
+    - [ ] 3.6.1 Top 30% of movie image as banner
+    - [ ] 3.6.2 Movie title in bold Montserrat font
+    - [ ] 3.6.3 Film description with specified CSS styling
+    - [ ] 3.6.4 Runtime, director, release date list with italic styling
+    - [ ] 3.6.5 Rotten Tomatoes score with logo and green color (#004915)
+  - [ ] 3.7 Add navigation functionality to return from detailed view to button view
+  - [ ] 3.8 Implement loading states with MUI circular loading indicators
+  - [ ] 3.9 Create utility functions for image handling and fallback content
+  - [ ] 3.10 Write comprehensive unit tests for all card components and states
+
+- [ ] 4.0 Film Data Management and Caching
+
+  - [ ] 4.1 Create useGhibliFilms custom hook for data management
+  - [ ] 4.2 Implement data preloading for visible cards to ensure smooth interactions
+  - [ ] 4.3 Add fallback content handling for missing API data:
+    - [ ] 4.3.1 "Not Available" for missing Rotten Tomatoes scores
+    - [ ] 4.3.2 Black background with centered title for missing images
+    - [ ] 4.3.3 Appropriate defaults for other missing fields
+  - [ ] 4.4 Implement offline detection and user messaging
+  - [ ] 4.5 Add error boundaries for graceful error handling
+  - [ ] 4.6 Create utility functions for data validation and transformation
+  - [ ] 4.7 Write unit tests for custom hook and utility functions
+
+- [ ] 5.0 Mobile Responsiveness and Pagination Features
+  - [ ] 5.1 Implement responsive breakpoints for mobile devices (320px to desktop)
+  - [ ] 5.2 Create single column layout for cards on mobile devices
+  - [ ] 5.3 Add touch interaction support for card flipping on mobile
+  - [ ] 5.4 Implement "...rest" button to fetch additional Studio Ghibli films
+  - [ ] 5.5 Create PaginationControls component with left/right arrow navigation
+  - [ ] 5.6 Implement pagination logic to show films in sets of four
+  - [ ] 5.7 Add smooth transitions for pagination navigation
+  - [ ] 5.8 Ensure all interactive elements are touch-friendly on mobile
+  - [ ] 5.9 Test responsive design across different screen sizes
+  - [ ] 5.10 Write unit tests for pagination components and mobile interactions
