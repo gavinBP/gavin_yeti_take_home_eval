@@ -48,6 +48,17 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  Film: { // root type
+    description?: string | null; // String
+    director?: string | null; // String
+    id: string; // String!
+    image?: string | null; // String
+    movieBanner?: string | null; // String
+    releaseDate?: string | null; // String
+    rottenTomatoesScore?: string | null; // String
+    runtime?: string | null; // String
+    title: string; // String!
+  }
   Mutation: {};
   Query: {};
   User: { // root type
@@ -68,10 +79,24 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
+  Film: { // field return type
+    description: string | null; // String
+    director: string | null; // String
+    id: string; // String!
+    image: string | null; // String
+    movieBanner: string | null; // String
+    releaseDate: string | null; // String
+    rottenTomatoesScore: string | null; // String
+    runtime: string | null; // String
+    title: string; // String!
+  }
   Mutation: { // field return type
     createUser: NexusGenRootTypes['User']; // User!
   }
   Query: { // field return type
+    allFilms: Array<NexusGenRootTypes['Film'] | null> | null; // [Film]
+    film: NexusGenRootTypes['Film'] | null; // Film
+    films: Array<NexusGenRootTypes['Film'] | null> | null; // [Film]
     user: NexusGenRootTypes['User'] | null; // User
   }
   User: { // field return type
@@ -82,10 +107,24 @@ export interface NexusGenFieldTypes {
 }
 
 export interface NexusGenFieldTypeNames {
+  Film: { // field return type name
+    description: 'String'
+    director: 'String'
+    id: 'String'
+    image: 'String'
+    movieBanner: 'String'
+    releaseDate: 'String'
+    rottenTomatoesScore: 'String'
+    runtime: 'String'
+    title: 'String'
+  }
   Mutation: { // field return type name
     createUser: 'User'
   }
   Query: { // field return type name
+    allFilms: 'Film'
+    film: 'Film'
+    films: 'Film'
     user: 'User'
   }
   User: { // field return type name
@@ -102,6 +141,9 @@ export interface NexusGenArgTypes {
     }
   }
   Query: {
+    film: { // args
+      id: string; // String!
+    }
     user: { // args
       userId: number; // Int!
     }

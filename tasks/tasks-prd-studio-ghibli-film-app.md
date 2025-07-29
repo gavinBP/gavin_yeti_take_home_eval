@@ -34,25 +34,25 @@
 
 - [ ] 1.0 Backend GraphQL Schema and API Integration
 
-  - [ ] 1.1 Create GraphQL object types for Studio Ghibli film data (Film type with all required fields)
-  - [ ] 1.2 Implement GraphQL queries for fetching individual films by ID and all films
-  - [ ] 1.3 Create GhibliAPI service to integrate with Studio Ghibli API (https://ghibliapi.vercel.app/)
-  - [ ] 1.4 Implement caching mechanism for API responses using in-memory or Redis
-  - [ ] 1.5 Add error handling with retry mechanisms and throttling for failed requests
-  - [ ] 1.6 Create GraphQL resolvers that connect to the GhibliAPI service
-  - [ ] 1.7 Add the ghibli schema module to the main GraphQL schema
-  - [ ] 1.8 Write unit tests for GhibliAPI service and GraphQL resolvers
+  - [x] 1.1 Create GraphQL object types for Studio Ghibli film data (Film type with all required fields)
+  - [x] 1.2 Implement GraphQL queries for fetching individual films by ID and all films
+  - [x] 1.3 Create GhibliAPI service to integrate with Studio Ghibli API (https://ghibliapi.vercel.app/)
+  - [x] 1.4 Implement caching mechanism for API responses using in-memory or Redis
+  - [x] 1.5 Add error handling with retry mechanisms and throttling for failed requests
+  - [x] 1.6 Create GraphQL resolvers that connect to the GhibliAPI service
+  - [x] 1.7 Add the ghibli schema module to the main GraphQL schema
+  - [x] 1.8 Write unit tests for GhibliAPI service and GraphQL resolvers
 
 - [ ] 2.0 Frontend Core Application Structure and Styling
 
-  - [ ] 2.1 Create main GhibliApp component with cloud background theme
-  - [ ] 2.2 Implement header "Discover Studio Ghibli Films" with Montserrat font styling
-  - [ ] 2.3 Add subtitle "Select a film & hover to learn more" with proper typography
-  - [ ] 2.4 Set up responsive layout using CSS Grid/Flexbox for card arrangement
-  - [ ] 2.5 Create styled components for consistent theming (colors, typography, spacing)
-  - [ ] 2.6 Implement cloud background image integration
-  - [ ] 2.7 Set up Apollo Client configuration for GraphQL integration
-  - [ ] 2.8 Create TypeScript type definitions for film data
+  - [x] 2.1 Create main GhibliApp component with cloud background theme
+  - [x] 2.2 Implement header "Discover Studio Ghibli Films" with Montserrat font styling
+  - [x] 2.3 Add subtitle "Select a film & hover to learn more" with proper typography
+  - [x] 2.4 Set up responsive layout using CSS Grid/Flexbox for card arrangement
+  - [x] 2.5 Create styled components for consistent theming (colors, typography, spacing)
+  - [x] 2.6 Implement cloud background image integration
+  - [x] 2.7 Set up Apollo Client configuration for GraphQL integration
+  - [x] 2.8 Create TypeScript type definitions for film data
   - [ ] 2.9 Write unit tests for main application component
 
 - [ ] 3.0 Interactive Film Card Components and States
