@@ -6,6 +6,7 @@ const stringSchema = z.string();
 const dateSchema = z.date();
 
 export * from './schemaModules/user';
+export * from './schemaModules/ghibli';
 
 export const Query = objectType({
   name: 'Query',
