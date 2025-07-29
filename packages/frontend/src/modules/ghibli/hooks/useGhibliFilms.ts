@@ -234,7 +234,17 @@ export const useGhibliFilms = (): UseGhibliFilmsReturn => {
   const loadMoreFilms = useCallback(async () => {
     setLoadingMore(true);
     try {
-      await refetchAllFilms();
+      const result = await refetchAllFilms();
+
+      // Manually process the result since onCompleted might not be called with skip: true
+      if (result.data?.allFilms && result.data.allFilms.length > 0) {
+        const enhancedAllFilms = result.data.allFilms.map(
+          validateAndEnhanceFilm,
+        );
+        setAllFilms(enhancedAllFilms);
+        setHasLoadedAllFilms(true);
+        preloadFilmImages(enhancedAllFilms);
+      }
     } catch (error) {
       console.error('Error loading more films:', error);
     } finally {

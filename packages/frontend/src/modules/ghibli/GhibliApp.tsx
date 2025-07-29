@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Box, Typography, Container, Alert } from '@mui/material';
 import FilmCard from './components/FilmCard';
 import FilmButton from './components/FilmButton';
+import LoadMoreFilmsButton from './components/LoadMoreFilmsButton';
 import GhibliErrorBoundary from './components/GhibliErrorBoundary';
 import { useGhibliFilms } from './hooks/useGhibliFilms';
 import type { Film } from './types/ghibli.types';
@@ -11,8 +12,19 @@ interface GhibliAppProps {
 }
 
 const GhibliApp: React.FC<GhibliAppProps> = () => {
-  const { films, error, loading } = useGhibliFilms();
+  const {
+    films,
+    allFilms,
+    error,
+    loading,
+    loadingMore,
+    loadMoreFilms,
+    hasLoadedAllFilms,
+  } = useGhibliFilms();
   const [expandedCards, setExpandedCards] = useState<Set<string>>(new Set());
+
+  // Determine which films to display
+  const filmsToDisplay = allFilms.length > 0 ? allFilms : films;
 
   const handleCardToggle = (filmId: string) => {
     setExpandedCards((prev) => {
@@ -157,8 +169,19 @@ const GhibliApp: React.FC<GhibliAppProps> = () => {
               transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
             }}
           >
-            {films.map((film, index) => renderFilmComponent(film, index))}
+            {filmsToDisplay.map((film, index) =>
+              renderFilmComponent(film, index),
+            )}
           </Box>
+
+          {/* Load More Films Button */}
+          <LoadMoreFilmsButton
+            onClick={loadMoreFilms}
+            isLoading={loadingMore}
+            hasMoreFilms={!hasLoadedAllFilms}
+            totalFilms={allFilms.length}
+            loadedFilms={filmsToDisplay.length}
+          />
 
           {/* Test message to verify component is loading */}
           <Typography
