@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Box, Typography } from '@mui/material';
 import {
   FilmButtonContainer,
   LoadingSpinner,
@@ -29,8 +30,24 @@ const FilmButton: React.FC<FilmButtonProps> = ({
       fullWidth
     >
       <ButtonContent>
-        {isLoading && <LoadingSpinner size={20} />}
-        {!isLoading && (
+        {isLoading ? (
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: 2,
+            }}
+          >
+            <LoadingSpinner size={32} />
+            <Typography
+              variant="body2"
+              sx={{ color: 'rgba(0, 0, 0, 0.6)', fontSize: '0.9rem' }}
+            >
+              Loading...
+            </Typography>
+          </Box>
+        ) : (
           <>
             {film.image && !imageError ? (
               <FilmImage

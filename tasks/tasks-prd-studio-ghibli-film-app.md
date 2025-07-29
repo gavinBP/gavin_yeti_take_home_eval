@@ -53,25 +53,25 @@
   - [x] 2.6 Implement cloud background image integration
   - [x] 2.7 Set up Apollo Client configuration for GraphQL integration
   - [x] 2.8 Create TypeScript type definitions for film data
-  - [ ] 2.9 Write unit tests for main application component
+  - [x] 2.9 Write unit tests for main application component
 
-- [ ] 3.0 Interactive Film Card Components and States
+- [x] 3.0 Interactive Film Card Components and States
 
-  - [ ] 3.1 Create FilmButton component for initial film selection (4 main films)
-  - [ ] 3.2 Implement FilmCard component with three states: default, hover, and clicked
-  - [ ] 3.3 Add smooth card flip animations using CSS transforms
-  - [ ] 3.4 Implement default state showing movie image from API 'image' field
-  - [ ] 3.5 Create hover state showing only title with arrow indicator
-  - [ ] 3.6 Build clicked state with detailed information layout:
-    - [ ] 3.6.1 Top 30% of movie image as banner
-    - [ ] 3.6.2 Movie title in bold Montserrat font
-    - [ ] 3.6.3 Film description with specified CSS styling
-    - [ ] 3.6.4 Runtime, director, release date list with italic styling
-    - [ ] 3.6.5 Rotten Tomatoes score with logo and green color (#004915)
-  - [ ] 3.7 Add navigation functionality to return from detailed view to button view
-  - [ ] 3.8 Implement loading states with MUI circular loading indicators
-  - [ ] 3.9 Create utility functions for image handling and fallback content
-  - [ ] 3.10 Write comprehensive unit tests for all card components and states
+  - [x] 3.1 Create FilmButton component for initial film selection (4 main films)
+  - [x] 3.2 Implement FilmCard component with three states: default, hover, and clicked
+  - [x] 3.3 Add smooth card flip animations using CSS transforms
+  - [x] 3.4 Implement default state showing movie image from API 'image' field
+  - [x] 3.5 Create hover state showing only title with arrow indicator
+  - [x] 3.6 Build clicked state with detailed information layout:
+    - [x] 3.6.1 Top 30% of movie image as banner
+    - [x] 3.6.2 Movie title in bold Montserrat font
+    - [x] 3.6.3 Film description with specified CSS styling
+    - [x] 3.6.4 Runtime, director, release date list with italic styling
+    - [x] 3.6.5 Rotten Tomatoes score with logo and green color (#004915)
+  - [x] 3.7 Add navigation functionality to return from detailed view to button view
+  - [x] 3.8 Implement loading states with MUI circular loading indicators
+  - [x] 3.9 Create utility functions for image handling and fallback content
+  - [x] 3.10 Write comprehensive unit tests for all card components and states
 
 - [ ] 4.0 Film Data Management and Caching
 

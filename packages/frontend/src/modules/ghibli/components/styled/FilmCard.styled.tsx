@@ -9,18 +9,21 @@ export const FilmCardContainer = styled(Box)(() => ({
   boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
   position: 'relative',
   cursor: 'pointer',
-  transition: 'all 0.3s ease-in-out',
+  transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
   overflow: 'hidden',
+  transformStyle: 'preserve-3d',
+  perspective: '1000px',
 
   '&:hover': {
-    boxShadow: '0 6px 12px rgba(0, 0, 0, 0.15)',
-    transform: 'translateY(-2px)',
+    boxShadow: '0 8px 16px rgba(0, 0, 0, 0.2)',
+    transform: 'translateY(-4px) scale(1.02)',
   },
 
   // Mobile touch feedback
   '@media (max-width: 768px)': {
     '&:active': {
-      transform: 'scale(0.98)',
+      transform: 'scale(0.96)',
+      transition: 'all 0.1s ease-out',
     },
   },
 }));
@@ -37,6 +40,18 @@ export const InfoPopup = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'column',
   boxShadow: '0 -4px 8px rgba(0, 0, 0, 0.1)',
+  transform: 'translateY(100%)',
+  transition: 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+  animation: 'slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards',
+
+  '@keyframes slideUp': {
+    '0%': {
+      transform: 'translateY(100%)',
+    },
+    '100%': {
+      transform: 'translateY(0%)',
+    },
+  },
 }));
 
 export const CardImage = styled('img')(() => ({
@@ -124,6 +139,21 @@ export const HoverOverlay = styled(Box)(() => ({
   justifyContent: 'center',
   padding: '16px',
   zIndex: 2,
+  opacity: 0,
+  transform: 'scale(0.9)',
+  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+  animation: 'fadeInScale 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards',
+
+  '@keyframes fadeInScale': {
+    '0%': {
+      opacity: 0,
+      transform: 'scale(0.9)',
+    },
+    '100%': {
+      opacity: 1,
+      transform: 'scale(1)',
+    },
+  },
 }));
 
 export const ArrowIcon = styled(Box)(() => ({
