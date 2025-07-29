@@ -36,11 +36,30 @@ const GET_MAIN_FILMS = gql`
   }
 `;
 
+const GET_ALL_FILMS = gql`
+  query GetAllFilms {
+    allFilms {
+      id
+      title
+      description
+      director
+      releaseDate
+      runtime
+      image
+      movieBanner
+      rottenTomatoesScore
+    }
+  }
+`;
+
 export const useGhibliFilms = (): UseGhibliFilmsReturn => {
   const [films, setFilms] = useState<Film[]>([]);
+  const [allFilms, setAllFilms] = useState<Film[]>([]);
   const [loading, setLoading] = useState(false);
+  const [loadingMore, setLoadingMore] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isOffline, setIsOffline] = useState(false);
+  const [hasLoadedAllFilms, setHasLoadedAllFilms] = useState(false);
 
   // Utility functions for data validation and fallback handling
   const validateAndEnhanceFilm = useCallback((film: Film): Film => {
@@ -160,6 +179,27 @@ export const useGhibliFilms = (): UseGhibliFilmsReturn => {
     },
   });
 
+  const {
+    data: allFilmsData,
+    loading: allFilmsLoading,
+    error: allFilmsError,
+    refetch: refetchAllFilms,
+  } = useQuery(GET_ALL_FILMS, {
+    skip: true, // Don't load all films initially
+    onCompleted: (data) => {
+      if (data?.allFilms && data.allFilms.length > 0) {
+        const enhancedAllFilms = data.allFilms.map(validateAndEnhanceFilm);
+        setAllFilms(enhancedAllFilms);
+        setHasLoadedAllFilms(true);
+        preloadFilmImages(enhancedAllFilms);
+      }
+    },
+    onError: (error) => {
+      console.error('GraphQL error loading all films:', error);
+      setError(error.message);
+    },
+  });
+
   useEffect(() => {
     setLoading(filmsLoading);
   }, [filmsLoading]);
@@ -191,16 +231,35 @@ export const useGhibliFilms = (): UseGhibliFilmsReturn => {
     refetch();
   }, [refetch]);
 
+  const loadMoreFilms = useCallback(async () => {
+    setLoadingMore(true);
+    try {
+      await refetchAllFilms();
+    } catch (error) {
+      console.error('Error loading more films:', error);
+    } finally {
+      setLoadingMore(false);
+    }
+  }, [refetchAllFilms]);
+
   // Return validated films with fallback data
   const validatedFilms = useMemo(() => {
     return films.length > 0 ? films : mainFilms;
   }, [films, mainFilms]);
 
+  const allAvailableFilms = useMemo(() => {
+    return allFilms.length > 0 ? allFilms : validatedFilms;
+  }, [allFilms, validatedFilms]);
+
   return {
     films: validatedFilms,
+    allFilms: allAvailableFilms,
     loading,
+    loadingMore,
     error,
     refetch: refetchFilms,
+    loadMoreFilms,
+    hasLoadedAllFilms,
     isOffline,
   };
 };

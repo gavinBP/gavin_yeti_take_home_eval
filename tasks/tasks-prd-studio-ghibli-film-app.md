@@ -86,14 +86,14 @@
   - [x] 4.6 Create utility functions for data validation and transformation
   - [x] 4.7 Write unit tests for custom hook and utility functions
 
-- [ ] 5.0 Mobile Responsiveness and Pagination Features
-  - [ ] 5.1 Implement responsive breakpoints for mobile devices (320px to desktop)
-  - [ ] 5.2 Create single column layout for cards on mobile devices
-  - [ ] 5.3 Add touch interaction support for card flipping on mobile
-  - [ ] 5.4 Implement "...rest" button to fetch additional Studio Ghibli films
-  - [ ] 5.5 Create PaginationControls component with left/right arrow navigation
-  - [ ] 5.6 Implement pagination logic to show films in sets of four
-  - [ ] 5.7 Add smooth transitions for pagination navigation
-  - [ ] 5.8 Ensure all interactive elements are touch-friendly on mobile
-  - [ ] 5.9 Test responsive design across different screen sizes
-  - [ ] 5.10 Write unit tests for pagination components and mobile interactions
+- [x] 5.0 Mobile Responsiveness and Pagination Features
+  - [x] 5.1 Implement responsive breakpoints for mobile devices (320px to desktop)
+  - [x] 5.2 Create single column layout for cards on mobile devices
+  - [x] 5.3 Add touch interaction support for card flipping on mobile
+  - [x] 5.4 Implement "...rest" button to fetch additional Studio Ghibli films
+  - [x] 5.5 Create PaginationControls component with left/right arrow navigation
+  - [x] 5.6 Implement pagination logic to show films in sets of four
+  - [x] 5.7 Add smooth transitions for pagination navigation
+  - [x] 5.8 Ensure all interactive elements are touch-friendly on mobile
+  - [x] 5.9 Test responsive design across different screen sizes
+  - [x] 5.10 Write unit tests for pagination components and mobile interactions

@@ -112,7 +112,7 @@ const FilmCard: React.FC<FilmCardProps> = ({
           <Box className="description-content">
             <Typography
               sx={{
-                width: '247px',
+                width: 'calc(100% - 43.5px)', // Fill available space minus left + right margins
                 height: '80px',
                 margin: '22px 22.5px 13px 21px',
                 fontFamily: 'Montserrat',
@@ -126,6 +126,15 @@ const FilmCard: React.FC<FilmCardProps> = ({
                 color: '#000',
                 overflow: 'auto',
                 overflowY: 'scroll',
+                // Mobile responsive adjustments
+                '@media (max-width: 768px)': {
+                  width: 'calc(100% - 32px)', // Fill available space minus left + right margins
+                  margin: '16px 16px 10px 16px',
+                },
+                '@media (max-width: 480px)': {
+                  width: 'calc(100% - 24px)', // Fill available space minus left + right margins
+                  margin: '12px 12px 8px 12px',
+                },
               }}
             >
               <Box component="span" sx={{ fontWeight: 'bold' }}>
@@ -152,6 +161,15 @@ const FilmCard: React.FC<FilmCardProps> = ({
                 letterSpacing: 'normal',
                 textAlign: 'left',
                 color: '#000',
+                // Mobile responsive adjustments
+                '@media (max-width: 768px)': {
+                  width: '220px',
+                  margin: '10px 16px 20px 16px',
+                },
+                '@media (max-width: 480px)': {
+                  width: '200px',
+                  margin: '8px 12px 16px 12px',
+                },
               }}
             >
               {film.runtime && (
@@ -190,6 +208,15 @@ const FilmCard: React.FC<FilmCardProps> = ({
               display: 'flex',
               alignItems: 'center',
               marginLeft: '21px',
+              // Mobile responsive adjustments - reduce bottom margin
+              '@media (max-width: 768px)': {
+                marginLeft: '16px',
+                marginBottom: '8px',
+              },
+              '@media (max-width: 480px)': {
+                marginLeft: '12px',
+                marginBottom: '6px',
+              },
             }}
           >
             <img

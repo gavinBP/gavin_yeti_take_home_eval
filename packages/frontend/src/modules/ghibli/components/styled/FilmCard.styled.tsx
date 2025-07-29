@@ -2,7 +2,8 @@ import styled from '@emotion/styled';
 import { Box, Typography } from '@mui/material';
 
 export const FilmCardContainer = styled(Box)(() => ({
-  width: '290.5px',
+  width: '100%',
+  maxWidth: '290.5px',
   height: '368px',
   backgroundColor: 'rgba(255, 255, 255, 0.9)',
   borderRadius: '8px',
@@ -13,18 +14,36 @@ export const FilmCardContainer = styled(Box)(() => ({
   overflow: 'hidden',
   transformStyle: 'preserve-3d',
   perspective: '1000px',
+  margin: '0 auto',
 
   '&:hover': {
     boxShadow: '0 8px 16px rgba(0, 0, 0, 0.2)',
     transform: 'translateY(-4px) scale(1.02)',
   },
 
-  // Mobile touch feedback
+  // Mobile responsive design
   '@media (max-width: 768px)': {
+    height: '320px',
+    maxWidth: '280px',
+
+    '&:hover': {
+      transform: 'none', // Disable hover effects on mobile
+    },
+
     '&:active': {
       transform: 'scale(0.96)',
       transition: 'all 0.1s ease-out',
     },
+  },
+
+  '@media (max-width: 480px)': {
+    height: '300px',
+    maxWidth: '260px',
+  },
+
+  '@media (max-width: 320px)': {
+    height: '280px',
+    maxWidth: '240px',
   },
 }));
 
@@ -51,6 +70,16 @@ export const InfoPopup = styled(Box)(() => ({
     '100%': {
       transform: 'translateY(0%)',
     },
+  },
+
+  // Mobile responsive adjustments
+  '@media (max-width: 768px)': {
+    height: '75%',
+    borderRadius: '8px 8px 0 0',
+  },
+
+  '@media (max-width: 480px)': {
+    height: '80%',
   },
 }));
 

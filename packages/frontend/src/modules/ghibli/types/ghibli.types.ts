@@ -56,9 +56,13 @@ export interface PaginationControlsProps {
 // Custom hook return types
 export interface UseGhibliFilmsReturn {
   films: Film[];
+  allFilms: Film[];
   loading: boolean;
+  loadingMore: boolean;
   error: string | null;
   refetch: () => void;
+  loadMoreFilms: () => Promise<void>;
+  hasLoadedAllFilms: boolean;
   isOffline: boolean;
 }
 
@@ -71,6 +75,7 @@ export interface UseFilmPaginationReturn {
   goToNext: () => void;
   goToPrevious: () => void;
   goToPage: (page: number) => void;
+  resetPagination: () => void;
 }
 
 // Utility types

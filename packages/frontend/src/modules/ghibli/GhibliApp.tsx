@@ -100,8 +100,9 @@ const GhibliApp: React.FC<GhibliAppProps> = () => {
           sx={{
             position: 'relative',
             zIndex: 2,
-            paddingTop: 4,
-            paddingBottom: 4,
+            paddingTop: { xs: 2, sm: 3, md: 4 },
+            paddingBottom: { xs: 2, sm: 3, md: 4 },
+            paddingX: { xs: 1, sm: 2, md: 3 },
             textAlign: 'center',
           }}
         >
@@ -143,15 +144,17 @@ const GhibliApp: React.FC<GhibliAppProps> = () => {
               display: 'grid',
               gridTemplateColumns: {
                 xs: '1fr',
-                sm: 'repeat(auto-fit, minmax(280px, 1fr))',
-                md: 'repeat(4, 1fr)',
+                sm: 'repeat(2, 1fr)',
+                md: 'repeat(3, 1fr)',
+                lg: 'repeat(4, 1fr)',
               },
-              gap: { xs: 2, sm: 3 },
+              gap: { xs: 1.5, sm: 2, md: 3 },
               maxWidth: '1200px',
               margin: '0 auto',
-              padding: 2,
+              padding: { xs: 1, sm: 2 },
               justifyContent: 'center',
               alignItems: 'center',
+              transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
             }}
           >
             {films.map((film, index) => renderFilmComponent(film, index))}
