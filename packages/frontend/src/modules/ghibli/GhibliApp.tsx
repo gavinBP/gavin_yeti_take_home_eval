@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Box, Typography, Container, Alert } from '@mui/material';
-import FilmButton from './components/FilmButton';
 import FilmCard from './components/FilmCard';
 import { useGhibliFilms } from './hooks/useGhibliFilms';
 import type { Film } from './types/ghibli.types';
@@ -10,13 +9,8 @@ interface GhibliAppProps {
 }
 
 const GhibliApp: React.FC<GhibliAppProps> = () => {
-  const { films, loading, error } = useGhibliFilms();
-  const [selectedFilms, setSelectedFilms] = useState<Set<string>>(new Set());
+  const { films, error } = useGhibliFilms();
   const [expandedCards, setExpandedCards] = useState<Set<string>>(new Set());
-
-  const handleFilmClick = (filmId: string) => {
-    setSelectedFilms((prev) => new Set(prev).add(filmId));
-  };
 
   const handleCardToggle = (filmId: string) => {
     setExpandedCards((prev) => {
@@ -30,27 +24,20 @@ const GhibliApp: React.FC<GhibliAppProps> = () => {
     });
   };
 
-  const renderFilmComponent = (film: Film) => {
-    const isSelected = selectedFilms.has(film.id);
+  const renderFilmComponent = (film: Film, index: number) => {
     const isExpanded = expandedCards.has(film.id);
 
-    if (isSelected) {
-      return (
-        <FilmCard
-          key={film.id}
-          film={film}
-          isExpanded={isExpanded}
-          onToggle={() => handleCardToggle(film.id)}
-        />
-      );
-    }
+    // Define unique hover colors for each card
+    const hoverColors = ['#d79a68', '#c24646', '#279094', '#3e6cac'];
+    const hoverColor = hoverColors[index % hoverColors.length];
 
     return (
-      <FilmButton
+      <FilmCard
         key={film.id}
         film={film}
-        onClick={() => handleFilmClick(film.id)}
-        isLoading={loading}
+        isExpanded={isExpanded}
+        onToggle={() => handleCardToggle(film.id)}
+        hoverColor={hoverColor}
       />
     );
   };
@@ -127,39 +114,19 @@ const GhibliApp: React.FC<GhibliAppProps> = () => {
             display: 'grid',
             gridTemplateColumns: {
               xs: '1fr',
-              sm: 'repeat(auto-fit, minmax(290px, 1fr))',
+              sm: 'repeat(auto-fit, minmax(280px, 1fr))',
+              md: 'repeat(4, 1fr)',
             },
             gap: { xs: 2, sm: 3 },
             maxWidth: '1200px',
             margin: '0 auto',
             padding: 2,
+            justifyContent: 'center',
+            alignItems: 'center',
           }}
         >
-          {films.map(renderFilmComponent)}
+          {films.map((film, index) => renderFilmComponent(film, index))}
         </Box>
-
-        {selectedFilms.size > 0 && (
-          <Box sx={{ textAlign: 'center', marginTop: 3 }}>
-            <Typography
-              variant="button"
-              sx={{
-                fontFamily: 'Montserrat, sans-serif',
-                color: '#000000',
-                cursor: 'pointer',
-                textDecoration: 'underline',
-                '&:hover': {
-                  opacity: 0.7,
-                },
-              }}
-              onClick={() => {
-                setSelectedFilms(new Set());
-                setExpandedCards(new Set());
-              }}
-            >
-              ← Back to Film Selection
-            </Typography>
-          </Box>
-        )}
 
         {/* Test message to verify component is loading */}
         <Typography

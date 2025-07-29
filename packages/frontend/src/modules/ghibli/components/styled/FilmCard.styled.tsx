@@ -10,8 +10,7 @@ export const FilmCardContainer = styled(Box)(() => ({
   position: 'relative',
   cursor: 'pointer',
   transition: 'all 0.3s ease-in-out',
-  transformStyle: 'preserve-3d',
-  perspective: '1000px',
+  overflow: 'hidden',
 
   '&:hover': {
     boxShadow: '0 6px 12px rgba(0, 0, 0, 0.15)',
@@ -26,44 +25,18 @@ export const FilmCardContainer = styled(Box)(() => ({
   },
 }));
 
-export const CardFace = styled(Box)(() => ({
+export const InfoPopup = styled(Box)(() => ({
   position: 'absolute',
-  width: '100%',
-  height: '100%',
-  backfaceVisibility: 'hidden',
-  borderRadius: '8px',
-  overflow: 'hidden',
-}));
-
-export const CardFront = styled(CardFace)(() => ({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  backgroundColor: 'rgba(255, 255, 255, 0.9)',
-}));
-
-export const CardBack = styled(CardFace)(() => ({
-  backgroundColor: 'transparent',
-  transform: 'rotateY(180deg)',
-  display: 'flex',
-  flexDirection: 'column',
-}));
-
-export const BannerImage = styled('img')(() => ({
-  width: '100%',
-  height: '30%',
-  objectFit: 'cover',
-  borderRadius: '8px 8px 0 0',
-}));
-
-export const InfoSubCard = styled(Box)(() => ({
+  bottom: 0,
+  left: 0,
+  right: 0,
+  height: '70%',
   backgroundColor: '#ffffff',
-  flex: 1,
-  padding: '16px',
-  borderRadius: '0 0 8px 8px',
+  padding: '0',
+  borderRadius: '8px 8px 0 0',
   display: 'flex',
   flexDirection: 'column',
-  justifyContent: 'space-between',
+  boxShadow: '0 -4px 8px rgba(0, 0, 0, 0.1)',
 }));
 
 export const CardImage = styled('img')(() => ({
@@ -139,16 +112,18 @@ export const FallbackText = styled(Typography)(() => ({
 }));
 
 export const HoverOverlay = styled(Box)(() => ({
-  width: '100%',
-  height: '100%',
-  backgroundColor: '#FF8C42', // Orange background like in your example
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
   borderRadius: '8px',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
-  position: 'relative',
   padding: '16px',
+  zIndex: 2,
 }));
 
 export const ArrowIcon = styled(Box)(() => ({

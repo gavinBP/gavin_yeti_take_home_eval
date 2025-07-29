@@ -3,7 +3,7 @@ import { Button, CircularProgress } from '@mui/material';
 
 export const FilmButtonContainer = styled(Button)(() => ({
   width: '290.5px',
-  height: '114px',
+  height: '368px',
   backgroundColor: 'rgba(255, 255, 255, 0.9)',
   borderRadius: '8px',
   display: 'flex',
@@ -60,3 +60,28 @@ export const ButtonContent = styled('div')({
   width: '100%',
   height: '100%',
 });
+
+export const FilmImage = styled('img')(() => ({
+  width: '100%',
+  height: '100%',
+  objectFit: 'cover',
+  borderRadius: '8px',
+}));
+
+export const ImageFallback = styled('div')(() => ({
+  width: '100%',
+  height: '100%',
+  backgroundColor: '#000000',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  borderRadius: '8px',
+}));
+
+export const FallbackText = styled('div')(() => ({
+  fontFamily: 'Montserrat, sans-serif',
+  fontSize: '1rem',
+  fontWeight: 500,
+  color: '#ffffff',
+  textAlign: 'center',
+}));

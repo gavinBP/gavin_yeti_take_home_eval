@@ -35,6 +35,7 @@ export interface FilmCardProps {
   isExpanded: boolean;
   onToggle: () => void;
   isLoading?: boolean;
+  hoverColor?: string;
 }
 
 export interface FilmButtonProps {

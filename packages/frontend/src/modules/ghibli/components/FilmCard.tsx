@@ -1,24 +1,24 @@
 import React, { useState } from 'react';
+import { Box, Typography } from '@mui/material';
 import {
   FilmCardContainer,
-  CardFront,
-  CardBack,
   CardImage,
   CardTitle,
-  CardDescription,
-  CardDetails,
-  RottenTomatoesScore,
   ImageFallback,
   FallbackText,
   HoverOverlay,
   ArrowIcon,
-  BannerImage,
-  InfoSubCard,
+  InfoPopup,
 } from './styled/FilmCard.styled';
 import { FALLBACK_TEXT } from '../constants/theme.constants';
 import type { FilmCardProps } from '../types/ghibli.types';
 
-const FilmCard: React.FC<FilmCardProps> = ({ film, isExpanded, onToggle }) => {
+const FilmCard: React.FC<FilmCardProps> = ({
+  film,
+  isExpanded,
+  onToggle,
+  hoverColor = '#FF8C42',
+}) => {
   const [imageError, setImageError] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -26,24 +26,8 @@ const FilmCard: React.FC<FilmCardProps> = ({ film, isExpanded, onToggle }) => {
     setImageError(true);
   };
 
-  const formatDetails = () => {
-    const details = [];
-    if (film.runtime) {
-      details.push(`Runtime: ${film.runtime}`);
-    }
-    if (film.director) {
-      details.push(`Director: ${film.director}`);
-    }
-    if (film.releaseDate) {
-      details.push(`Release: ${film.releaseDate}`);
-    }
-    return details.join(' • ') || 'Details not available';
-  };
-
   const handleClick = () => {
-    if (!isExpanded) {
-      onToggle();
-    }
+    onToggle();
   };
 
   const handleMouseEnter = () => {
@@ -56,75 +40,147 @@ const FilmCard: React.FC<FilmCardProps> = ({ film, isExpanded, onToggle }) => {
     setIsHovered(false);
   };
 
-  // Default state: Just the image (290.5px × 368px)
-  if (!isExpanded && !isHovered) {
-    return (
-      <FilmCardContainer
-        onClick={handleClick}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-      >
-        <CardFront>
-          {film.image && !imageError ? (
-            <CardImage
-              src={film.image}
-              alt={film.title}
-              onError={handleImageError}
-            />
-          ) : (
-            <ImageFallback>
-              <FallbackText>{film.title}</FallbackText>
-            </ImageFallback>
-          )}
-        </CardFront>
-      </FilmCardContainer>
-    );
-  }
+  return (
+    <FilmCardContainer
+      onClick={handleClick}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      {/* Background image - always visible */}
+      {film.image && !imageError ? (
+        <CardImage
+          src={film.image}
+          alt={film.title}
+          onError={handleImageError}
+        />
+      ) : (
+        <ImageFallback>
+          <FallbackText>{film.title}</FallbackText>
+        </ImageFallback>
+      )}
 
-  // Hover state: Flat orange background with title and arrow
-  if (!isExpanded && isHovered) {
-    return (
-      <FilmCardContainer
-        onClick={handleClick}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-      >
-        <HoverOverlay>
+      {/* Hover overlay - only when not expanded and hovered */}
+      {!isExpanded && isHovered && (
+        <HoverOverlay sx={{ backgroundColor: hoverColor }}>
           <CardTitle>{film.title}</CardTitle>
           <ArrowIcon>→</ArrowIcon>
         </HoverOverlay>
-      </FilmCardContainer>
-    );
-  }
+      )}
 
-  // Clicked state: Banner image (top 30%) + white sub-card with details
-  return (
-    <FilmCardContainer>
-      <CardBack>
-        {film.image && !imageError ? (
-          <BannerImage
-            src={film.image}
-            alt={film.title}
-            onError={handleImageError}
-          />
-        ) : (
-          <ImageFallback sx={{ height: '30%', borderRadius: '8px 8px 0 0' }}>
-            <FallbackText>{film.title}</FallbackText>
-          </ImageFallback>
-        )}
-        <InfoSubCard>
-          <div>
-            <CardTitle>{film.title}</CardTitle>
-            <CardDescription>
+      {/* Info popup - only when expanded */}
+      {isExpanded && (
+        <InfoPopup>
+          {/* Description Content */}
+          <Box className="description-content">
+            <Typography
+              sx={{
+                width: '247px',
+                height: '80px',
+                margin: '22px 22.5px 13px 21px',
+                fontFamily: 'Montserrat',
+                fontSize: '14px',
+                fontWeight: 'normal',
+                fontStretch: 'normal',
+                fontStyle: 'normal',
+                lineHeight: 1.43,
+                letterSpacing: 'normal',
+                textAlign: 'left',
+                color: '#000',
+                overflow: 'auto',
+                overflowY: 'scroll',
+              }}
+            >
+              <Box component="span" sx={{ fontWeight: 'bold' }}>
+                {film.title}
+              </Box>
+              <br />
               {film.description || FALLBACK_TEXT.description}
-            </CardDescription>
-            <CardDetails>{formatDetails()}</CardDetails>
-          </div>
-          <RottenTomatoesScore>
-            {film.rottenTomatoesScore || FALLBACK_TEXT.rottenTomatoes}
-          </RottenTomatoesScore>
-        </InfoSubCard>
-      </CardBack>
+            </Typography>
+          </Box>
+
+          {/* List Content */}
+          <Box className="list-content">
+            <Typography
+              sx={{
+                width: '247px',
+                height: '39px',
+                margin: '13px 22.5px 28px 21px',
+                fontFamily: 'Montserrat',
+                fontSize: '11px',
+                fontWeight: 'bold',
+                fontStretch: 'normal',
+                fontStyle: 'italic',
+                lineHeight: 'normal',
+                letterSpacing: 'normal',
+                textAlign: 'left',
+                color: '#000',
+              }}
+            >
+              {film.runtime && (
+                <>
+                  Runtime:{' '}
+                  <Box component="span" sx={{ fontWeight: 'normal' }}>
+                    {film.runtime}
+                  </Box>
+                  <br />
+                </>
+              )}
+              {film.director && (
+                <>
+                  Director:{' '}
+                  <Box component="span" sx={{ fontWeight: 'normal' }}>
+                    {film.director}
+                  </Box>
+                  <br />
+                </>
+              )}
+              {film.releaseDate && (
+                <>
+                  Release:{' '}
+                  <Box component="span" sx={{ fontWeight: 'normal' }}>
+                    {film.releaseDate}
+                  </Box>
+                </>
+              )}
+            </Typography>
+          </Box>
+
+          {/* Score Content */}
+          <Box
+            className="score-content"
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              marginLeft: '21px',
+            }}
+          >
+            <img
+              src="/tomato@2x.png"
+              alt="Rotten Tomatoes"
+              style={{ width: '24px', height: '24px' }}
+            />
+            <Typography
+              sx={{
+                width: '90px',
+                height: '61px',
+                flexGrow: 0,
+                margin: '0 0 0 12px',
+                fontFamily: 'Montserrat',
+                fontSize: '42.5px',
+                fontWeight: 500,
+                fontStretch: 'normal',
+                fontStyle: 'normal',
+                lineHeight: 1.43,
+                letterSpacing: 'normal',
+                textAlign: 'left',
+                color: '#004915',
+              }}
+            >
+              {film.rottenTomatoesScore || FALLBACK_TEXT.rottenTomatoes}
+            </Typography>
+          </Box>
+        </InfoPopup>
+      )}
     </FilmCardContainer>
   );
 };

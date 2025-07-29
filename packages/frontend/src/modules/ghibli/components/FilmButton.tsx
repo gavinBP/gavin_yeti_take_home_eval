@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   FilmButtonContainer,
   LoadingSpinner,
   ButtonContent,
+  FilmImage,
+  ImageFallback,
+  FallbackText,
 } from './styled/FilmButton.styled';
-import { FILM_TITLES } from '../constants/theme.constants';
+
 import type { FilmButtonProps } from '../types/ghibli.types';
 
 const FilmButton: React.FC<FilmButtonProps> = ({
@@ -12,6 +15,12 @@ const FilmButton: React.FC<FilmButtonProps> = ({
   onClick,
   isLoading = false,
 }) => {
+  const [imageError, setImageError] = useState(false);
+
+  const handleImageError = () => {
+    setImageError(true);
+  };
+
   return (
     <FilmButtonContainer
       onClick={onClick}
@@ -21,7 +30,21 @@ const FilmButton: React.FC<FilmButtonProps> = ({
     >
       <ButtonContent>
         {isLoading && <LoadingSpinner size={20} />}
-        {FILM_TITLES[film.id as keyof typeof FILM_TITLES] || film.title}
+        {!isLoading && (
+          <>
+            {film.image && !imageError ? (
+              <FilmImage
+                src={film.image}
+                alt={film.title}
+                onError={handleImageError}
+              />
+            ) : (
+              <ImageFallback>
+                <FallbackText>{film.title}</FallbackText>
+              </ImageFallback>
+            )}
+          </>
+        )}
       </ButtonContent>
     </FilmButtonContainer>
   );
