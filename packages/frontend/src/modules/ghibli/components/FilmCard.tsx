@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, CircularProgress } from '@mui/material';
 import {
   FilmCardContainer,
   CardImage,
@@ -18,6 +18,7 @@ const FilmCard: React.FC<FilmCardProps> = ({
   isExpanded,
   onToggle,
   hoverColor = '#FF8C42',
+  isLoading = false,
 }) => {
   const [imageError, setImageError] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -27,17 +28,21 @@ const FilmCard: React.FC<FilmCardProps> = ({
   };
 
   const handleClick = () => {
-    onToggle();
+    if (!isLoading) {
+      onToggle();
+    }
   };
 
   const handleMouseEnter = () => {
-    if (!isExpanded) {
+    if (!isExpanded && !isLoading) {
       setIsHovered(true);
     }
   };
 
   const handleMouseLeave = () => {
-    setIsHovered(false);
+    if (!isLoading) {
+      setIsHovered(false);
+    }
   };
 
   return (
@@ -46,17 +51,50 @@ const FilmCard: React.FC<FilmCardProps> = ({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Background image - always visible */}
-      {film.image && !imageError ? (
-        <CardImage
-          src={film.image}
-          alt={film.title}
-          onError={handleImageError}
-        />
+      {/* Loading state */}
+      {isLoading ? (
+        <Box
+          sx={{
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: 'rgba(255, 255, 255, 0.9)',
+            borderRadius: '8px',
+          }}
+        >
+          <CircularProgress
+            size={40}
+            sx={{ color: '#000000', marginBottom: 2 }}
+          />
+          <Typography
+            variant="body2"
+            sx={{
+              color: 'rgba(0, 0, 0, 0.6)',
+              fontSize: '0.9rem',
+              fontFamily: 'Montserrat, sans-serif',
+            }}
+          >
+            Loading...
+          </Typography>
+        </Box>
       ) : (
-        <ImageFallback>
-          <FallbackText>{film.title}</FallbackText>
-        </ImageFallback>
+        <>
+          {/* Background image - always visible */}
+          {film.image && !imageError ? (
+            <CardImage
+              src={film.image}
+              alt={film.title}
+              onError={handleImageError}
+            />
+          ) : (
+            <ImageFallback>
+              <FallbackText>{film.title}</FallbackText>
+            </ImageFallback>
+          )}
+        </>
       )}
 
       {/* Hover overlay - only when not expanded and hovered */}

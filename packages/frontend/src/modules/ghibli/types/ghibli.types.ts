@@ -59,6 +59,7 @@ export interface UseGhibliFilmsReturn {
   loading: boolean;
   error: string | null;
   refetch: () => void;
+  isOffline: boolean;
 }
 
 export interface UseFilmPaginationReturn {
