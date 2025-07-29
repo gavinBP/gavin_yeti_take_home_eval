@@ -21,43 +21,109 @@ This application provides an immersive experience for exploring Studio Ghibli fi
 
 - **Node.js**: Version 20.11 (use `.nvmrc` file)
 - **pnpm**: Package manager for dependency management
+- **Git**: For cloning the repository
+- **Docker**: For running PostgreSQL database
 
 ### Installation
 
-1. **Install Node.js**
+1. **Clone the Repository**
+
+   ```bash
+   git clone <your-repo-url>
+   cd gavin_yeti_take_home_eval
+   ```
+
+2. **Install Node.js**
 
    ```bash
    nvm install 20.11
    nvm use
    ```
 
-2. **Install pnpm**
-   Follow the [pnpm installation instructions](https://pnpm.io/installation)
+3. **Install pnpm**
 
-3. **Install Dependencies**
+   ```bash
+   npm install -g pnpm
+   ```
+
+4. **Install Dependencies**
+
    ```bash
    pnpm install
    ```
 
-### Running the Application
+5. **Start PostgreSQL Database**
 
-1. **Start Backend Server**
+   ```bash
+   docker-compose up -d
+   ```
+
+6. **Set Up Environment Variables**
+   Create a `.env` file in the `packages/backend` directory:
 
    ```bash
    cd packages/backend
-   PORT=8080 GRAPHQL_PATH=/api/graphql NODE_ENV=development LOG_LEVEL=info DATABASE_URL=postgresql://prisma:prisma@localhost:5432/ghibli pnpm dev
+   echo "DATABASE_URL=postgresql://user:password@localhost:5432/db
+   LOG_LEVEL=info
+   NODE_ENV=development
+   PORT=8080
+   GRAPHQL_PATH=/api/graphql" > .env
    ```
 
-2. **Start Frontend Development Server**
+7. **Generate Backend Prerequisites** (Required before first run)
+
+   ```bash
+   pnpm generate
+   ```
+
+8. **Run Database Migrations**
+
+   ```bash
+   pnpm migrate
+   ```
+
+   **Note**: If migration fails with permission errors, the application can still run without successful migration. The Studio Ghibli API integration works independently of the database.
+
+### Running the Application
+
+1. **Start Backend Server** (in a new terminal)
+
+   ```bash
+   cd packages/backend
+   pnpm dev
+   ```
+
+   **Note**: The backend server will start on port 8080. You should see a message like "🚀 Server ready at http://localhost:8080/api/graphql" when it's ready.
+
+2. **Start Frontend Development Server** (in another terminal)
 
    ```bash
    cd packages/frontend
    pnpm dev
    ```
 
+   **Note**: The frontend server will start on port 3000. You should see a message like "Local: http://localhost:3000/" when it's ready.
+
 3. **Access the Application**
    - Frontend: http://localhost:3000
    - GraphQL Playground: http://localhost:8080/api/graphql
+
+**Important**: Both servers need to be running simultaneously for the application to work properly. The frontend depends on the backend GraphQL API.
+
+### Troubleshooting
+
+- **Port Conflicts**: Check if ports 3000 or 8080 are already in use
+- **Node Version**: Ensure you're using Node.js 20.11 (check with `node --version`)
+- **Database Connection Issues**: Ensure Docker is running and PostgreSQL container is up (`docker-compose ps`)
+- **Environment Variables**: Make sure `.env` file exists in `packages/backend` directory
+- **Migration Errors**: Run `pnpm migrate` in the backend directory if database schema is out of sync
+- **Migration Permission Errors**: If `pnpm migrate` fails, the app can still run - the Studio Ghibli API works independently
+- **Backend Not Starting**: Make sure you've run `pnpm generate` in the backend directory. Look for the message "🚀 Server ready at http://localhost:8080/api/graphql" to confirm it's running.
+- **Frontend Not Loading**: Ensure the backend is running on port 8080 first. The frontend will show errors if it can't connect to the GraphQL API.
+- **API Issues**: The app depends on the external Studio Ghibli API - ensure internet connection
+- **Missing Dependencies**: If you see import errors, run `pnpm install` in both `packages/backend` and `packages/frontend`
+- **GraphQL Schema Errors**: Run `pnpm generate` in the backend directory to regenerate the schema
+- **Module Not Found Errors**: Ensure all dependencies are installed with `pnpm install` in the root directory
 
 ## 📋 Dev-Tasks Process
 
